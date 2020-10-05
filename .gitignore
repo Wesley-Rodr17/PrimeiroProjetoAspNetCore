@@ -272,6 +272,6 @@ __pycache__/
 # tools/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
-PrimeiroProjeto/appsettings.dev.json
-PrimeiroProjeto/appsettings.json
-PrimeiroProjeto/appsettings.pro.json
+!PrimeiroProjeto/appsettings.dev.json
+!PrimeiroProjeto/appsettings.json
+!PrimeiroProjeto/appsettings.pro.json

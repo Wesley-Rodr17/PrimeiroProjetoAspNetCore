@@ -32,10 +32,12 @@ namespace PrimeiroProjeto
         {
             //services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            string conexaoBD = "uXGbWDg7/n963vf+jNSVTjRa1Fz3OcDAShfba4b8afoGhrq3NFy4b2iyJU1g5BKjZ7GkhfMm8jnllAi134WskahvafHpo6HuS8upl7W9TqO5CbUBi8ZYIv1XYt/9Se5JxY/NRq3zY/IL1bmby0jpvuAIpakmQQ1tfUf6aiuWfGlZgVHfDS7rM45Pm5sBIQPodJBmwTcUu8THL+rUGXC/oadBTBV2QvmQmjcEky7WYDI=";
-            var builder = new SqlConnectionStringBuilder(SecurityController.Decrypt(conexaoBD, _env));
-
-            services.AddDbContext<Contexto>(options => options.UseSqlServer(builder.ConnectionString));
+            //string conexaoBD = "uXGbWDg7/n963vf+jNSVTjRa1Fz3OcDAShfba4b8afoGhrq3NFy4b2iyJU1g5BKjZ7GkhfMm8jnllAi134WskahvafHpo6HuS8upl7W9TqO5CbUBi8ZYIv1XYt/9Se5JxY/NRq3zY/IL1bmby0jpvuAIpakmQQ1tfUf6aiuWfGlZgVHfDS7rM45Pm5sBIQPodJBmwTcUu8THL+rUGXC/oadBTBV2QvmQmjcEky7WYDI=";
+            //var builder = new SqlConnectionStringBuilder(SecurityController.Decrypt(conexaoBD, _env));
+            //services.AddDbContext<Contexto>(options => options.UseSqlServer(builder.ConnectionString));/
+            services.AddDbContext<Contexto>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<Contexto>()

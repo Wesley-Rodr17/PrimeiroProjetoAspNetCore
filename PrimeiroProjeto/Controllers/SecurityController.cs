@@ -12,7 +12,7 @@ namespace PrimeiroProjeto.Controllers
 
         public static string Encrypt(string clearText)
         {
-            //string EncryptionKey = "wesleylkey123";
+            
             string EncryptionKey = "";
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())

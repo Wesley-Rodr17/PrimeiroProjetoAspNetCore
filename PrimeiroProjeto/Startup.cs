@@ -10,22 +10,36 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PrimeiroProjeto.Models.Contexto;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
+using PrimeiroProjeto.Controllers;
 
 namespace PrimeiroProjeto
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            _env = environment.EnvironmentName;
         }
 
         public IConfiguration Configuration { get; }
+        private string _env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            string conexaoBD = "uXGbWDg7/n963vf+jNSVTjRa1Fz3OcDAShfba4b8afoGhrq3NFy4b2iyJU1g5BKjZ7GkhfMm8jnllAi134WskahvafHpo6HuS8upl7W9TqO5CbUBi8ZYIv1XYt/9Se5JxY/NRq3zY/IL1bmby0jpvuAIpakmQQ1tfUf6aiuWfGlZgVHfDS7rM45Pm5sBIQPodJBmwTcUu8THL+rUGXC/oadBTBV2QvmQmjcEky7WYDI=";
+            var builder = new SqlConnectionStringBuilder(SecurityController.Decrypt(conexaoBD, _env));
+
+            services.AddDbContext<Contexto>(options => options.UseSqlServer(builder.ConnectionString));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<Contexto>()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
         }
@@ -49,6 +63,7 @@ namespace PrimeiroProjeto
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

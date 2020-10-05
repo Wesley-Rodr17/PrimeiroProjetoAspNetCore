@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PrimeiroProjeto.Models.Entidades;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrimeiroProjeto.Models.Contexto
 {
-    public class Contexto : DbContext
+    public class Contexto : IdentityDbContext<IdentityUser>
     {
         public Contexto(DbContextOptions<Contexto> option) : base(option)
         {

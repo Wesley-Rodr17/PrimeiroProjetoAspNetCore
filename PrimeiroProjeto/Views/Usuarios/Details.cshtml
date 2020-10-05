@@ -1,4 +1,4 @@
-﻿@model PrimeiroProjeto.Models.Entidades.Usuario
+@model PrimeiroProjeto.Models.Entidades.Usuario
 
 @{
     ViewData["Title"] = "Details";
@@ -10,14 +10,9 @@
     
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeUsuario)
+            Nome
         </dt>
         <dd>
             @Html.DisplayFor(model => model.NomeUsuario)
@@ -54,3 +49,4 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index" class="btn btn-light">Voltar para listagem</a>
 </div>
+

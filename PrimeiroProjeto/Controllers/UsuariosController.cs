@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PrimeiroProjeto.Models.Contexto;
 using PrimeiroProjeto.Models.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +10,9 @@ namespace PrimeiroProjeto.Controllers
 {
     public class UsuariosController : Controller
     {
+        
         private readonly Contexto _contexto;
+        public static System.Text.Encoding UTF8 { get; }
 
 
         public UsuariosController(Contexto contexto)

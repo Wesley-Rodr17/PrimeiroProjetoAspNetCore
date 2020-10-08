@@ -18,25 +18,29 @@ namespace PrimeiroProjeto
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _env = environment.EnvironmentName;
+            
+
         }
 
         public IConfiguration Configuration { get; }
-        private string _env { get; }
+        //private string _env { get; }
 
+        //EnvironmentVariableTarget.Machine
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            /*
+            Este é um explemplo de como chamar a variavel de ambiente do seu computador para a aplicação 
+            ASPNETCORE_ConnectionStrings__DefaultConnection => este é o nome dado a variavel de ambiente
+            EnvironmentVariableTarget.Machine => indica que ele deve procurar a variavel na maquina
+            */
 
-            //string conexaoBD = "uXGbWDg7/n963vf+jNSVTjRa1Fz3OcDAShfba4b8afoGhrq3NFy4b2iyJU1g5BKjZ7GkhfMm8jnllAi134WskahvafHpo6HuS8upl7W9TqO5CbUBi8ZYIv1XYt/9Se5JxY/NRq3zY/IL1bmby0jpvuAIpakmQQ1tfUf6aiuWfGlZgVHfDS7rM45Pm5sBIQPodJBmwTcUu8THL+rUGXC/oadBTBV2QvmQmjcEky7WYDI=";
-            //var builder = new SqlConnectionStringBuilder(SecurityController.Decrypt(conexaoBD, _env));
-            //services.AddDbContext<Contexto>(options => options.UseSqlServer(builder.ConnectionString));/
+            string conexao = Environment.GetEnvironmentVariable("ASPNETCORE_ConnectionStrings__DefaultConnection", EnvironmentVariableTarget.Machine);
             services.AddDbContext<Contexto>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+              options.UseSqlServer(Configuration.GetConnectionString(conexao)));
             
 
             services.AddIdentity<IdentityUser, IdentityRole>()
